@@ -1,16 +1,16 @@
 #!/bin/bash
 # This script is used to build, create and push docker images of our demo micro services.
 
-set -xv
+#set -xv
 cd $home
 
 #build docker image from existing code
-
+VERSION=v1
 echo $VERSION;
-./bookinfo/src/build-services.sh 1.1.1
+#/bin/bash $home/bookinfo/src/build-services.sh 1.1.1
 sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
 
-if [ "$VERSION" = "v1"]; then 
+if [ "$VERSION" == "v1" ]; then 
 # create service and deployment for bookinfo
 sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
@@ -19,7 +19,7 @@ sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-all-v1.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/networking/gateway-demoapp.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
 
-elif [ "$VERSION" = "v2"]; then
+elif [ "$VERSION" == "v2" ]; then
 
 sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo_v2.yaml
 
