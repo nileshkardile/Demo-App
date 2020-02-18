@@ -27,12 +27,11 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
-      imagePullSecrets:
-      - name: book-info-secret
-
         volumeMounts:
         - name: tmp
           mountPath: /tmp
+      imagePullSecrets:
+      - name: book-info-secret
       volumes:
       - name: tmp
         emptyDir: {}
