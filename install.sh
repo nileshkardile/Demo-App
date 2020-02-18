@@ -6,7 +6,7 @@ cd $home
 
 #build docker image from existing code
 echo $VERSION;
-/bin/bash $home/bookinfo/src/build-services.sh 1.1.1
+
 sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
 
 if [ "$VERSION" == "v1" ]; then 
