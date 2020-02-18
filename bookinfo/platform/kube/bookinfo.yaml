@@ -73,7 +73,7 @@ spec:
       serviceAccountName: bookinfo-details
       containers:
       - name: details
-        image: demoapp2020/details
+        image: demoapp2020/details:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9080
@@ -126,7 +126,7 @@ spec:
       serviceAccountName: bookinfo-ratings
       containers:
       - name: ratings
-        image: demoapp2020/ratings
+        image: demoapp2020/ratings:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9080
@@ -179,7 +179,7 @@ spec:
       serviceAccountName: bookinfo-reviews
       containers:
       - name: reviews
-        image: demoapp2020/reviews
+        image: demoapp2020/reviews:latest
         imagePullPolicy: Always 
         env:
         - name: LOG_DIR
@@ -245,7 +245,7 @@ spec:
       serviceAccountName: bookinfo-productpage
       containers:
       - name: productpage
-        image: demoapp2020/productpage
+        image: demoapp2020/productpage:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9080        

@@ -11,6 +11,7 @@ sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=user
 
 if [ "$VERSION" == "v1" ]; then 
 # create service and deployment for bookinfo
+sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
 # create virtual service, gateway and destination rule for bookinfo
