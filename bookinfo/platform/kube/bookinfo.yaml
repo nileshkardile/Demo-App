@@ -75,7 +75,7 @@ spec:
       - name: details
         image: demoapp2020/details
         imagePullPolicy: Always
-    secrets:
+      imagePullSecrets:
       - name: book-info-secret
         ports:
         - containerPort: 9080
@@ -128,7 +128,7 @@ spec:
       - name: ratings
         image: demoapp2020/ratings
         imagePullPolicy: Alawys
-    secrets:
+      imagePullSecrets:
       - name: book-info-secret
         ports:
         - containerPort: 9080
@@ -181,7 +181,7 @@ spec:
       - name: reviews
         image: demoapp2020/reviews
         imagePullPolicy: Always
-    secrets:
+      imagePullSecrets:
       - name: book-info-secret
         env:
         - name: LOG_DIR
@@ -247,7 +247,7 @@ spec:
       - name: productpage
         image: demoapp2020/productpage
         imagePullPolicy: Always
-    secrets:
+      imagePullSecrets:
       - name: book-info-secret
         ports:
         - containerPort: 9080
