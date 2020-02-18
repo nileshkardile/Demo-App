@@ -75,10 +75,10 @@ spec:
       - name: details
         image: demoapp2020/details
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: book-info-secret
         ports:
         - containerPort: 9080
+        secret:
+          secretName: book-info-secret
 ---
 ##################################################################################################
 # Ratings service
@@ -128,10 +128,10 @@ spec:
       - name: ratings
         image: demoapp2020/ratings
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: book-info-secret
         ports:
         - containerPort: 9080
+        secret:
+          secretName: book-info-secret      
 ---
 ##################################################################################################
 # Reviews service
@@ -181,8 +181,8 @@ spec:
       - name: reviews
         image: demoapp2020/reviews
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: book-info-secret
+        secret:
+          secretName: book-info-secret 
         env:
         - name: LOG_DIR
           value: "/tmp/logs"
@@ -247,10 +247,10 @@ spec:
       - name: productpage
         image: demoapp2020/productpage
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: book-info-secret
         ports:
         - containerPort: 9080
+        secret:
+          secretName: book-info-secret        
         volumeMounts:
         - name: tmp
           mountPath: /tmp
