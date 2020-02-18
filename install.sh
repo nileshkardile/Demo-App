@@ -7,6 +7,7 @@ cd $home
 #build docker image from existing code
 echo $VERSION;
 
+sudo /usr/bin/kubectl delete secret book-info-secret
 sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
 
 if [ "$VERSION" == "v1" ]; then 
