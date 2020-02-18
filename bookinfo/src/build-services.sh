@@ -40,11 +40,14 @@ pushd "$SCRIPTDIR/details"
 popd
 
 pushd "$SCRIPTDIR/reviews"
+  #java build the app.
+  docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build
   pushd reviews-wlpcfg
     #plain build -- no ratings
     docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v1 .
   popd
 popd
+
 
 pushd "$SCRIPTDIR/ratings"
   docker build --pull -t "${PREFIX}/ratings:${VERSION}" -t "${PREFIX}/ratings:$TIMESTAMP" --build-arg service_version=v1 .
