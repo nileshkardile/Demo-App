@@ -77,8 +77,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 9080
-        secret:
-          secretName: book-info-secret
+      imagePullSecrets:
+      - name: book-info-secret
 ---
 ##################################################################################################
 # Ratings service
@@ -130,8 +130,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 9080
-        secret:
-          secretName: book-info-secret      
+      imagePullSecrets:
+      - name: book-info-secret      
 ---
 ##################################################################################################
 # Reviews service
@@ -180,9 +180,7 @@ spec:
       containers:
       - name: reviews
         image: demoapp2020/reviews
-        imagePullPolicy: Always
-        secret:
-          secretName: book-info-secret 
+        imagePullPolicy: Always 
         env:
         - name: LOG_DIR
           value: "/tmp/logs"
@@ -193,6 +191,8 @@ spec:
           mountPath: /tmp
         - name: wlp-output
           mountPath: /opt/ibm/wlp/output
+      imagePullSecrets:
+      - name: book-info-secret
       volumes:
       - name: wlp-output
         emptyDir: {}
@@ -248,12 +248,12 @@ spec:
         image: demoapp2020/productpage
         imagePullPolicy: Always
         ports:
-        - containerPort: 9080
-        secret:
-          secretName: book-info-secret        
+        - containerPort: 9080        
         volumeMounts:
         - name: tmp
           mountPath: /tmp
+      imagePullSecrets:
+      - name: book-info-secret
       volumes:
       - name: tmp
         emptyDir: {}
