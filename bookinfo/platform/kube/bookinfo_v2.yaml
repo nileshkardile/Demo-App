@@ -23,10 +23,13 @@ spec:
       serviceAccountName: bookinfo-productpage
       containers:
       - name: productpage
-        image: nileshkardile831/istio:bookinfo-productpage-v2
+        image: demoapp2020/productpage:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
+      imagePullSecrets:
+      - name: book-info-secret
+
         volumeMounts:
         - name: tmp
           mountPath: /tmp
