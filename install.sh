@@ -10,9 +10,11 @@ echo $VERSION;
 sudo /usr/bin/kubectl delete secret book-info-secret
 sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
 
+#replace docker tag
+sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
+
 if [ "$VERSION" == "v1" ]; then 
 # create service and deployment for bookinfo
-sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
 # create virtual service, gateway and destination rule for bookinfo
