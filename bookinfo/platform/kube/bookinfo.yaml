@@ -127,7 +127,7 @@ spec:
       containers:
       - name: ratings
         image: demoapp2020/ratings
-        imagePullPolicy: Alawys
+        imagePullPolicy: Always
       imagePullSecrets:
       - name: book-info-secret
         ports:
