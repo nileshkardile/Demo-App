@@ -5,7 +5,6 @@
 cd $home
 
 #build docker image from existing code
-VERSION=v1
 echo $VERSION;
 #/bin/bash $home/bookinfo/src/build-services.sh 1.1.1
 sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
