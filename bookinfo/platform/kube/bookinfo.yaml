@@ -245,7 +245,7 @@ spec:
       serviceAccountName: bookinfo-productpage
       containers:
       - name: productpage
-        image: demoapp2020/productpage:latest
+        image: demoapp2020/productpage
         imagePullPolicy: Always
         ports:
         - containerPort: 9080        

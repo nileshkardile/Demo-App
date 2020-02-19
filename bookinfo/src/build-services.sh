@@ -45,6 +45,13 @@ pushd "$SCRIPTDIR/reviews"
   pushd reviews-wlpcfg
     #plain build -- no ratings
     docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v1 .
+    #with ratings black stars
+    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v2 \
+           --build-arg enable_ratings=true .
+    #with ratings red stars
+    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v3 \
+           --build-arg enable_ratings=true --build-arg star_color=red .
+
   popd
 popd
 
