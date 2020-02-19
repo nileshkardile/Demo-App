@@ -18,9 +18,9 @@ sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
 # create virtual service, gateway and destination rule for bookinfo
-sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-all-v1.yaml
+#sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-all-v1.yaml
 sudo /usr/bin/kubectl apply -f bookinfo/networking/gateway-demoapp.yaml
-sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
+#sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
 
 elif [ "$VERSION" == "v2" ]; then
 #replace docker tag
