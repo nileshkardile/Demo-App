@@ -16,8 +16,8 @@ FROM websphere-liberty:19.0.0.6-javaee8
 
 ENV SERVERDIRNAME reviews
 
-COPY ./servers/LibertyProjectServer /opt/ibm/wlp/usr/servers/defaultServer/
-
+COPY ./servers/LibertyProjectServer/* /opt/ibm/wlp/usr/servers/defaultServer/
+COPY ./servers/LibertyProjectServer/apps/* /opt/ibm/wlp/usr/servers/defaultServer/apps/
 RUN /opt/ibm/wlp/bin/installUtility install  --acceptLicense /opt/ibm/wlp/usr/servers/defaultServer/server.xml
 
 ARG service_version
