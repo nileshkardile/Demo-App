@@ -44,10 +44,10 @@ pushd "$SCRIPTDIR/reviews"
   docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build
   pushd reviews-wlpcfg
     #plain build -- no ratings
-    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v1 .
+    #docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v1 .
     #with ratings black stars
-    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v2 \
-           --build-arg enable_ratings=true .
+    #docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v2 \
+     #      --build-arg enable_ratings=true .
     #with ratings red stars
     docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v3 \
            --build-arg enable_ratings=true --build-arg star_color=red .
