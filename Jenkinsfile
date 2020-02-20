@@ -24,7 +24,7 @@ pipeline {
               TIMESTAMP=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
-              SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+              SCRIPTDIR=$home
               pushd "$SCRIPTDIR/productpage"
 
 docker build --pull -t "${PREFIX}/productpage:${VERSION}" -t "${PREFIX}/productpage:$TIMESTAMP" .
