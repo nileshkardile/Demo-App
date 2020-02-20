@@ -55,6 +55,8 @@ popd
       steps{
         script {
         }
+      }
+    }
         
     stage('Docker Push') {
       steps{
