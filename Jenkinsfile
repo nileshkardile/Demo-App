@@ -17,14 +17,14 @@ pipeline {
         script {
           
           TIMESTAMP= '${BUILD_NUMBER}' 
-         
+           echo "Version Number1: "+ $TIMESTAMP
            sh '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f $(docker images -a -q)
               set -o errexit
               VERSION=1.0.0
               PREFIX=demoapp2020
-              echo $TIMESTAMP 
+              echo "Version Number2: "+ $TIMESTAMP 
               #=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
@@ -64,7 +64,7 @@ TIMESTAMP= '${BUILD_NUMBER}'
            
           #Docker Login
 echo Incedo123 | docker login --username demoapp2020 --password-stdin
-echo $TIMESTAMP;    
+echo "Version Number3: "+ $TIMESTAMP   
 #Push image to docker hub
 sudo docker push ${PREFIX}/productpage:${TIMESTAMP}
 sudo docker push ${PREFIX}/details:${TIMESTAMP}
