@@ -1,0 +1,36 @@
+pipeline {
+  environment {
+    registry = "demoapp2020/Incedo123"
+    registryCredential = 'docker-hub-credentials'
+    DOCKER_VERSION="1.0.0.${BUILD_NUMBER}"
+    PREFIX="demoapp2020"	
+  }
+  agent any
+  stages {
+    
+    stage('Checkout') {
+      steps {
+        git 'https://github.com/nileshkardile/Demo-App.git'
+      }
+    }
+   
+    stage('Deploy') {
+      steps{
+        script { 
+             sh '''#!/bin/bash
+		echo "Test.."
+               '''
+        }
+      }
+    }
+     stage('Verify') {
+      steps{
+        script {
+               sh '''#!/bin/bash
+		echo "Test 2..."
+               '''
+        }
+      }
+    }
+  }
+}
