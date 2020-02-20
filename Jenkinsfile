@@ -15,7 +15,7 @@ pipeline {
       steps{
         script {
          
-           bash '''#!/bin/bash
+           sh '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f $(docker images -a -q)
               set -o errexit
@@ -52,7 +52,7 @@ popd
      stage('Docker Push') {
       steps{
         script {
-         bash '''#!/bin/bash
+         sh '''#!/bin/bash
                  
           #Docker Login
 echo Incedo123 | docker login --username demoapp2020 --password-stdin
