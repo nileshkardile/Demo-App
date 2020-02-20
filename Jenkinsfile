@@ -26,8 +26,7 @@ pipeline {
     }
     stage('Build & Create Docker') {
       steps{
-        script {
-              println "version1: ${DOCKER_VERSION}"  
+        script { 
              sh '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f \$(docker images -a -q)
