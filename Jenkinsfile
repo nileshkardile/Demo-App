@@ -55,9 +55,10 @@ popd
       steps{
         script {
          sh '''#!/bin/bash
-                 
+           
           #Docker Login
 echo Incedo123 | docker login --username demoapp2020 --password-stdin
+echo $TIMESTAMP;    
 #Push image to docker hub
 sudo docker push ${PREFIX}/productpage:$TIMESTAMP
 sudo docker push ${PREFIX}/details:$TIMESTAMP
