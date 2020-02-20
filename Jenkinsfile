@@ -45,20 +45,11 @@ popd
 pushd "$SCRIPTDIR/ratings"
   docker build --pull -t "${PREFIX}/ratings:${VERSION}" -t "${PREFIX}/ratings:$TIMESTAMP" --build-arg service_version=v1 .
 popd
-
-       '''
-                 
-        }
+               '''
+       }
       }
     }
-     stage('Docker Scan') {
-      steps{
-        script {
-        }
-      }
-    }
-        
-    stage('Docker Push') {
+     stage('Docker Push') {
       steps{
         script {
          bash '''#!/bin/bash
@@ -70,7 +61,7 @@ sudo docker push ${PREFIX}/productpage:$TIMESTAMP
 sudo docker push ${PREFIX}/details:$TIMESTAMP
 sudo docker push ${PREFIX}/reviews:$TIMESTAMP
 sudo docker push ${PREFIX}/ratings:$TIMESTAMP
-         '''
+               '''
         }
       }
     }
