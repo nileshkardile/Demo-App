@@ -1,15 +1,16 @@
 pipeline {  
   environment {
-    registry = "demoapp2020/Incedo123"
-    registryCredential = 'docker-hub-credentials'
+     parameters {
+        string(defaultValue: 'v1', description: 'Version for blue/green and canary build', name: 'VERSION', trim: false)
+	string(defaultValue: 'latest', description: 'Docker version', name: 'DOCKER_TAG', trim: false)
+	VERSION = "${params.VERSION}"
+	DOCKER_TAG = "${params.DOCKER_TAG}"
+    }
     
   }
   agent any
   
-  parameters {
-        string(defaultValue: 'v1', description: 'Version for blue/green and canary build', name: 'VERSION', trim: false)
-	string(defaultValue: 'latest', description: 'Docker version', name: 'DOCKER_TAG', trim: false)
-    }
+ 
   stages {
     
     stage('Checkout') {
@@ -20,7 +21,7 @@ pipeline {
    
     stage('Deploy') {
       steps{
-      def VERSION = "${params.VERSION}"
+      
         script { 
              sh '''#!/bin/bash
 				export deploy_home=/var/lib/jenkins/workspace/_Demo-App-Deploy-Pipeline_master
@@ -30,7 +31,7 @@ pipeline {
 				
 				if [ "$VERSION" == "v1" ]; then
 				#replace docker tag
-				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo.yaml
+				sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
 				# create service and deployment for bookinfo
 				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
@@ -41,7 +42,7 @@ pipeline {
 
 				elif [ "$VERSION" == "v2" ]; then
 				#replace docker tag
-				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo_v2.yaml
+				sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo_v2.yaml
 
 				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo_v2.yaml
 
