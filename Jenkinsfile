@@ -13,12 +13,11 @@ pipeline {
             steps{
                 script{
                     BUILD_VERSION="1.0.0.${BUILD_NUMBER}"
-			println "version: ${BUILD_VERSION}"
+		     println "version: ${BUILD_VERSION}"
+		    sh "export DOCKER_VERSION={$BUILD_VERSION}"
                 }
             }
-	    steps {
-		    sh "export DOCKER_VERSION={$BUILD_VERSION}"
-            }
+	    
      }
     stage('Checkout') {
       steps {
