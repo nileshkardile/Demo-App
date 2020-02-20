@@ -1,11 +1,15 @@
-pipeline {
+pipeline {  
   environment {
     registry = "demoapp2020/Incedo123"
     registryCredential = 'docker-hub-credentials'
-    DOCKER_VERSION="1.0.0.${BUILD_NUMBER}"
-    PREFIX="demoapp2020"	
+    
   }
   agent any
+  
+  parameters {
+        string(defaultValue: 'v1', description: 'Version for blue/green and canary build', name: 'VERSION', trim: false)
+		string(defaultValue: 'latest', description: 'Docker version', name: 'DOCKER_TAG', trim: false)
+    }
   stages {
     
     stage('Checkout') {
@@ -18,18 +22,48 @@ pipeline {
       steps{
         script { 
              sh '''#!/bin/bash
-		echo "Test.."
+				export deploy_home= /var/lib/jenkins/workspace/CD_Demo-App-Deploy-Pipeline_master
+				cd $deploy_home
+				sudo /usr/bin/kubectl delete secret book-info-secret
+				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
+				
+				if [ "${params.VERSION}" == "v1" ]; then
+				#replace docker tag
+				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo.yaml
+				# create service and deployment for bookinfo
+				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
+
+				# create virtual service, gateway and destination rule for bookinfo
+				sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-all-v1.yaml
+				sudo /usr/bin/kubectl apply -f bookinfo/networking/gateway-demoapp.yaml
+				sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
+
+				elif [ "${params.VERSION}" == "v2" ]; then
+				#replace docker tag
+				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo_v2.yaml
+
+				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo_v2.yaml
+
+				# add support for version 2 in virtual service and destination rule along with request weight
+				sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-demo-app-v2.yaml
+				sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app-v2.yaml
+
+				else
+
+				echo "Deployment Version is Mismatch ! Please provide v1 or v2";
+
+				fi
+	
+						
                '''
         }
       }
     }
      stage('Verify') {
       steps{
-        script {
-               sh '''#!/bin/bash
-		echo "Test 2..."
+       		echo "Verfied..."
                '''
-        }
+       
       }
     }
   }
