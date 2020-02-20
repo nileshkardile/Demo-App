@@ -21,18 +21,18 @@ pipeline {
               set -o errexit
               VERSION=1.1.1
               PREFIX=demoapp2020
-              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              #TIMESTAMP=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
               SCRIPTDIR=$home
               pushd "$SCRIPTDIR/productpage"
 
-docker build --pull -t "${PREFIX}/productpage:${VERSION}" -t "${PREFIX}/productpage:$TIMESTAMP" .
+docker build --pull -t "${PREFIX}/productpage:${VERSION}" -t "${PREFIX}/productpage:$BUILD_NUMBER" .
 popd
 
 pushd "$SCRIPTDIR/details"
   #plain build -- no calling external book service to fetch topics
-  docker build --pull -t "${PREFIX}/details:${VERSION}" -t "${PREFIX}/details:$TIMESTAMP" --build-arg service_version=v1 .
+  docker build --pull -t "${PREFIX}/details:${VERSION}" -t "${PREFIX}/details:$BUILD_NUMBER" --build-arg service_version=v1 .
 popd
 
 pushd "$SCRIPTDIR/reviews"
@@ -40,12 +40,12 @@ pushd "$SCRIPTDIR/reviews"
   docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build
   pushd reviews-wlpcfg
     #plain build -- no ratings
-    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$TIMESTAMP" --build-arg service_version=v1 .
+    docker build --pull -t "${PREFIX}/reviews:${VERSION}" -t "${PREFIX}/reviews:$BUILD_NUMBER" --build-arg service_version=v1 .
   popd
 popd
 
 pushd "$SCRIPTDIR/ratings"
-  docker build --pull -t "${PREFIX}/ratings:${VERSION}" -t "${PREFIX}/ratings:$TIMESTAMP" --build-arg service_version=v1 .
+  docker build --pull -t "${PREFIX}/ratings:${VERSION}" -t "${PREFIX}/ratings:$BUILD_NUMBER" --build-arg service_version=v1 .
 popd
                '''
        }
@@ -60,10 +60,10 @@ popd
 echo Incedo123 | docker login --username demoapp2020 --password-stdin
 echo $TIMESTAMP;    
 #Push image to docker hub
-sudo docker push ${PREFIX}/productpage:$TIMESTAMP
-sudo docker push ${PREFIX}/details:$TIMESTAMP
-sudo docker push ${PREFIX}/reviews:$TIMESTAMP
-sudo docker push ${PREFIX}/ratings:$TIMESTAMP
+sudo docker push ${PREFIX}/productpage:$BUILD_NUMBER
+sudo docker push ${PREFIX}/details:$BUILD_NUMBER
+sudo docker push ${PREFIX}/reviews:$BUILD_NUMBER
+sudo docker push ${PREFIX}/ratings:$BUILD_NUMBER
                '''
         }
       }
