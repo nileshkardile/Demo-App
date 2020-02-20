@@ -22,6 +22,7 @@ pipeline {
               VERSION=1.1.1
               PREFIX=demoapp2020
               TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
               pushd "$SCRIPTDIR/productpage"
 
