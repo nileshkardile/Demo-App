@@ -1,9 +1,10 @@
-def BUILD_VERSION ='1.0.0';
+//def BUILD_VERSION ='1.0.0';
 pipeline {
   environment {
     registry = "demoapp2020/Incedo123"
     registryCredential = 'docker-hub-credentials'
     dockerImage = ''
+    DOCKER_VERSION="1.0.0.${BUILD_NUMBER}"
 	
   }
   agent any
@@ -12,9 +13,9 @@ pipeline {
             // Each stage is made up of steps
             steps{
                 script{
-                    BUILD_VERSION="1.0.0.${BUILD_NUMBER}"
-		     println "version: ${BUILD_VERSION}"
-		    sh "export DOCKER_VERSION={$BUILD_VERSION}"
+                    //BUILD_VERSION="1.0.0.${BUILD_NUMBER}"
+		    println "version: ${DOCKER_VERSION}"
+		    //sh "export DOCKER_VERSION={$BUILD_VERSION}"
                 }
             }
 	    
