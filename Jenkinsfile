@@ -14,7 +14,7 @@ pipeline {
     stage('Build & Create Docker') {
       steps{
         script {
-          dockerImage = docker.build registry + ":Login-Form-$BUILD_NUMBER"
+         
            bash '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f $(docker images -a -q)
