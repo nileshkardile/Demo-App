@@ -20,6 +20,7 @@ pipeline {
    
     stage('Deploy') {
       steps{
+      def VERSION = "${params.VERSION}"
         script { 
              sh '''#!/bin/bash
 				export deploy_home=/var/lib/jenkins/workspace/_Demo-App-Deploy-Pipeline_master
@@ -27,7 +28,7 @@ pipeline {
 				sudo /usr/bin/kubectl delete secret book-info-secret
 				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
 				
-				if [ "${params.VERSION}" == "v1" ]; then
+				if [ "$VERSION" == "v1" ]; then
 				#replace docker tag
 				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo.yaml
 				# create service and deployment for bookinfo
@@ -38,7 +39,7 @@ pipeline {
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/gateway-demoapp.yaml
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
 
-				elif [ "${params.VERSION}" == "v2" ]; then
+				elif [ "$VERSION" == "v2" ]; then
 				#replace docker tag
 				sed -i "s/latest/${params.DOCKER_TAG}/g" bookinfo/platform/kube/bookinfo_v2.yaml
 
