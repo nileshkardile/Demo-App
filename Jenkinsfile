@@ -13,6 +13,7 @@ pipeline {
             steps{
                 script{
                     DOCKER_VERSION="1.0.0.${BUILD_NUMBER}"
+			println "version: ${DOCKER_VERSION}"
                 }
             }                
      }
