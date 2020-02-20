@@ -16,7 +16,7 @@ pipeline {
       steps{
         script {
           
-          TIMESTAMP= '1.0.0.${BUILD_NUMBER}' 
+          TIMESTAMP= '${BUILD_NUMBER}' 
          
            sh '''#!/bin/bash
              #To clean older docker images
@@ -58,6 +58,8 @@ popd
      stage('Docker Push') {
       steps{
         script {
+          
+TIMESTAMP= '${BUILD_NUMBER}' 
          sh '''#!/bin/bash
            
           #Docker Login
