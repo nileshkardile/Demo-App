@@ -1,10 +1,10 @@
-def DOCKER_VERSION;
+def DOCKER_VERSION ='1.0.0';
 pipeline {
   environment {
     registry = "demoapp2020/Incedo123"
     registryCredential = 'docker-hub-credentials'
     dockerImage = ''
-	  TIMESTAMP=''
+	
   }
   agent any
   stages {
@@ -25,14 +25,14 @@ pipeline {
     stage('Build & Create Docker') {
       steps{
         script {
-                
+              println "version1: ${DOCKER_VERSION}"  
              sh '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f $(docker images -a -q)
               set -o errexit
               VERSION=1.0.0
               PREFIX=demoapp2020
-              echo "Version1: "+ \${DOCKER_VERSION}
+              echo "Version2: "+ ${DOCKER_VERSION}
               #TIMESTAMP=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
@@ -71,7 +71,7 @@ popd
            
           #Docker Login
 echo Incedo123 | docker login --username demoapp2020 --password-stdin
-echo "Version Number3: "+ $DOCKER_VERSION   
+echo "Version Number3: "+ ${DOCKER_VERSION}
 #Push image to docker hub
 sudo docker push ${PREFIX}/productpage:${DOCKER_VERSION}
 sudo docker push ${PREFIX}/details:${DOCKER_VERSION}
