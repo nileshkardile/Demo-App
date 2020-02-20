@@ -15,14 +15,17 @@ pipeline {
     stage('Build & Create Docker') {
       steps{
         script {
+          
+          TIMESTAMP= '1.0.0.${BUILD_NUMBER}' 
          
            sh '''#!/bin/bash
              #To clean older docker images
               sudo docker rmi -f $(docker images -a -q)
               set -o errexit
-              VERSION=1.1.1
+              VERSION=1.0.0
               PREFIX=demoapp2020
-              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              echo $TIMESTAMP 
+              #=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
               SCRIPTDIR=$home
