@@ -32,7 +32,7 @@ pipeline {
               set -o errexit
               VERSION=1.0.0
               PREFIX=demoapp2020
-              echo "Version1: "+ ${DOCKER_VERSION}
+              echo "Version1: "+ \${DOCKER_VERSION}
               #TIMESTAMP=$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
               cd $home
