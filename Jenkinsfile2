@@ -3,9 +3,7 @@ pipeline {
      parameters {
         string(defaultValue: 'v1', description: 'Version for blue/green and canary build', name: 'VERSION', trim: false)
 	string(defaultValue: 'latest', description: 'Docker version', name: 'DOCKER_TAG', trim: false)
-	VERSION = "${params.VERSION}"
-	DOCKER_TAG = "${params.DOCKER_TAG}"
-    }
+	    }
     
   }
   agent any
@@ -21,13 +19,16 @@ pipeline {
    
     stage('Deploy') {
       steps{
-      
-        script { 
+        
+	sh "echo ${params.VERSION}"
+	sh "echo ${params.DOCKER_TAG}"
+	
+
              sh '''#!/bin/bash
 				export deploy_home=/var/lib/jenkins/workspace/_Demo-App-Deploy-Pipeline_master
 				cd $deploy_home
 				sudo /usr/bin/kubectl delete secret book-info-secret
-				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2010' --from-literal=password='Incedo123'
+				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2020' --from-literal=password='Incedo123'
 				
 				if [ "$VERSION" == "v1" ]; then
 				#replace docker tag
@@ -58,7 +59,7 @@ pipeline {
 	
 						
                '''
-        }
+        
       }
     }
      stage('Verify') {
