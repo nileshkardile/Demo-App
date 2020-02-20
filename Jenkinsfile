@@ -35,8 +35,8 @@ pipeline {
               echo "Version2: "+ \${DOCKER_VERSION}
               #TIMESTAMP=\$(date +%Y%m%d%H%M%S)
               export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
-              cd $home
-              SCRIPTDIR=$home
+              cd \$home
+              SCRIPTDIR=\$home
               pushd \"\$SCRIPTDIR/productpage\"
 
 docker build --pull -t \"\${PREFIX}/productpage:\${VERSION}\" -t \"\${PREFIX}/productpage:\${DOCKER_VERSION}\" .
