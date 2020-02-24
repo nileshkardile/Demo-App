@@ -24,8 +24,8 @@ pipeline {
 	
 
              sh '''#!/bin/bash
-				export deploy_home=/var/lib/jenkins/workspace/_Demo-App-Deploy-Pipeline_master
-				cd $deploy_home
+				
+				cd ${WORKSPACE};
 				sudo /usr/bin/kubectl delete secret book-info-secret
 				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2020' --from-literal=password='Incedo123'
 				
