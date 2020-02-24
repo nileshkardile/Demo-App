@@ -36,26 +36,27 @@ pipeline {
 		docker build --pull -t "$PREFIX/productpage:${VERSION}" -t "$PREFIX/productpage:$DOCKER_VERSION" .
 	      popd
 
-	      pushd "$SCRIPTDIR/details"
+              # commenting creation of all images since for demo we will change image of product page only
+	      #pushd "$SCRIPTDIR/details"
 		  #plain build -- no calling external book service to fetch topics
-  		  echo "Building Docker Image: $PREFIX/details:$DOCKER_VERSION"
-                  docker build --pull -t "$PREFIX/details:${VERSION}" -t "$PREFIX/details:$DOCKER_VERSION" --build-arg service_version=v1 .
-	      popd
+  		#echo "Building Docker Image: $PREFIX/details:$DOCKER_VERSION"
+                 #docker build --pull -t "$PREFIX/details:${VERSION}" -t "$PREFIX/details:$DOCKER_VERSION" --build-arg service_version=v1 .
+	      #popd
 
-	     pushd "$SCRIPTDIR/reviews"
+	     #pushd "$SCRIPTDIR/reviews"
   		#java build the app.
-  		docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build
-  	     pushd reviews-wlpcfg
+  		#docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build
+  	     #pushd reviews-wlpcfg
     	     #plain build -- no ratings
-    		echo "Building Docker Image: $PREFIX/reviews:$DOCKER_VERSION"
-    		docker build --pull -t "$PREFIX/reviews:${VERSION}" -t "$PREFIX/reviews:$DOCKER_VERSION" --build-arg service_version=v1 .
-  	     popd
-	     popd
+    		#echo "Building Docker Image: $PREFIX/reviews:$DOCKER_VERSION"
+    		#docker build --pull -t "$PREFIX/reviews:${VERSION}" -t "$PREFIX/reviews:$DOCKER_VERSION" --build-arg service_version=v1 .
+  	     #popd
+	     #popd
 
-	     pushd "$SCRIPTDIR/ratings"
-  		echo "Building Docker Image: $PREFIX/ratings:$DOCKER_VERSION"
-  		docker build --pull -t "$PREFIX/ratings:${VERSION}" -t "$PREFIX/ratings:$DOCKER_VERSION" --build-arg service_version=v1 .
-	     popd
+	     #pushd "$SCRIPTDIR/ratings"
+  		#echo "Building Docker Image: $PREFIX/ratings:$DOCKER_VERSION"
+  		#docker build --pull -t "$PREFIX/ratings:${VERSION}" -t "$PREFIX/ratings:$DOCKER_VERSION" --build-arg service_version=v1 .
+	     #popd
                '''
         }
       }
@@ -69,12 +70,12 @@ pipeline {
 	#Push image to docker hub
 	echo "Pushing Docker Image: $PREFIX/productpage:$DOCKER_VERSION"
 	sudo docker push $PREFIX/productpage:$DOCKER_VERSION
-	echo "Pushing Docker Image: $PREFIX/details:$DOCKER_VERSION"
-	sudo docker push $PREFIX/details:$DOCKER_VERSION
-	echo "Pushing Docker Image: $PREFIX/reviews:$DOCKER_VERSION"
-	sudo docker push $PREFIX/reviews:$DOCKER_VERSION
-	echo "Pushing Docker Image: $PREFIX/ratings:$DOCKER_VERSION"
-	sudo docker push $PREFIX/ratings:$DOCKER_VERSION
+	#echo "Pushing Docker Image: $PREFIX/details:$DOCKER_VERSION"
+	#sudo docker push $PREFIX/details:$DOCKER_VERSION
+	#echo "Pushing Docker Image: $PREFIX/reviews:$DOCKER_VERSION"
+	#sudo docker push $PREFIX/reviews:$DOCKER_VERSION
+	#echo "Pushing Docker Image: $PREFIX/ratings:$DOCKER_VERSION"
+	#sudo docker push $PREFIX/ratings:$DOCKER_VERSION
                '''
         }
       }
