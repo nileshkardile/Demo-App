@@ -43,6 +43,7 @@ pipeline {
 				else
 				#replace docker tag
 				sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo_v2.yaml
+				sed -i "s/v2/$VERSION/g" bookinfo/platform/kube/bookinfo_v2.yaml
 				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo_v2.yaml
 
                                 #replace version info in istio virtual service and destination rule
