@@ -40,20 +40,19 @@ pipeline {
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/gateway-demoapp.yaml
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app.yaml
 
-				elif [ "$VERSION" == "v2" ]; then
+				else
 				#replace docker tag
 				sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo_v2.yaml
-
 				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo_v2.yaml
+
+                                #replace version info in istio virtual service and destination rule
+				sed -i "s/v2/$VERSION/g" bookinfo/networking/virtual-service-demo-app-v2.yaml
+				sed -i "s/v2/$VERSION/g" bookinfo/networking/destination-rule-demo-app-v2.yaml
 
 				# add support for version 2 in virtual service and destination rule along with request weight
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/virtual-service-demo-app-v2.yaml
 				sudo /usr/bin/kubectl apply -f bookinfo/networking/destination-rule-demo-app-v2.yaml
-
-				else
-
-				echo "Deployment Version is Mismatch ! Please provide v1 or v2";
-
+				
 				fi
 	
 						
