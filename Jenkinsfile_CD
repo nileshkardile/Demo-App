@@ -23,7 +23,7 @@ pipeline {
 	sh "echo ${params.DOCKER_TAG}"
 
              sh '''#!/bin/bash
-				CHANGE_LOG = Time: $(date +%D) $(date +%r) Docker Tag: $DOCKER_TAG
+				export CHANGE_LOG = Time: $(date +%D) $(date +%r) Docker Tag: $DOCKER_TAG
 				cd ${WORKSPACE};
 				sudo /usr/bin/kubectl delete secret book-info-secret
 				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2020' --from-literal=password='Incedo123'
