@@ -227,7 +227,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: 
-    kubernetes.io/change-cause = "v1"
+    kubernetes.io/change-cause: "v1"
   name: productpage-v1
   labels:
     app: productpage
