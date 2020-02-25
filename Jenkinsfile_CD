@@ -25,6 +25,7 @@ pipeline {
              sh '''#!/bin/bash
 				export CHANGE_LOG="Time: $(date +%D) $(date +%r) Docker Tag: $DOCKER_TAG"
 				echo CHANGE_LOG
+				echo $CHANGE_LOG
 				cd ${WORKSPACE};
 				sudo /usr/bin/kubectl delete secret book-info-secret
 				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2020' --from-literal=password='Incedo123'
