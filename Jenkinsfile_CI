@@ -28,7 +28,7 @@ pipeline {
               sudo docker rmi -f $(docker images -a -q)
               set -o errexit
               VERSION=1.0.0
-              export home=/var/lib/jenkins/workspace/CI_Demo-App-Pipeline_master/bookinfo/src
+              export home=${WORKSPACE}/bookinfo/src
               cd $home
               SCRIPTDIR=$home
               pushd "$SCRIPTDIR/productpage"
