@@ -23,7 +23,7 @@ pipeline {
 	sh "echo ${params.DOCKER_TAG}"
 
              sh '''#!/bin/bash
-				export CHANGE_LOG = Time: $(date +%D) $(date +%r) Docker Tag: $DOCKER_TAG
+				export CHANGE_LOG="Time: $(date +%D) $(date +%r) Docker Tag: $DOCKER_TAG"
 				cd ${WORKSPACE};
 				sudo /usr/bin/kubectl delete secret book-info-secret
 				sudo /usr/bin/kubectl create secret generic book-info-secret --from-literal=username='demoapp2020' --from-literal=password='Incedo123'
@@ -31,7 +31,7 @@ pipeline {
 				if [ "$VERSION" == "v1" ]; then
 				#replace docker tag
 				sed -i "s/latest/$DOCKER_TAG/g" bookinfo/platform/kube/bookinfo.yaml
-				#sed -i "s/reasonForChange/$CHANGE_LOG/g" bookinfo/platform/kube/bookinfo.yaml
+				sed -i "s/reasonForChange/$CHANGE_LOG/g" bookinfo/platform/kube/bookinfo.yaml
 				# create service and deployment for bookinfo
 				sudo /usr/bin/kubectl apply -f bookinfo/platform/kube/bookinfo.yaml
 
