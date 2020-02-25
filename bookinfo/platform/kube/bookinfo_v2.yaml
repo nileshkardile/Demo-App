@@ -4,7 +4,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {"kubernetes.io/change-cause" = "v2"}
+  annotations: 
+    kubernetes.io/change-cause: "reasonForChange"
   name: productpage-v2
   labels:
     app: productpage
